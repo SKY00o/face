@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Information</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+            padding: 0 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            opacity: 0.8;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            font-size: 32px;
+            margin: 40px 0 20px;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        p {
+            font-size: 16px;
+            color: white;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .info-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .info-card p {
+            color: #666;
+            text-shadow: none;
+        }
+
+        .faq-item {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .faq-item h4 {
+            color: #667eea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0;
+        }
+
+        .faq-item .answer {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            color: #666;
+        }
+
+        .faq-item.active .answer {
+            display: block;
+        }
+
+        .toggle {
+            font-size: 20px;
+        }
+
+        .updates-list {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin: 30px 0;
+        }
+
+        .update-item {
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .update-item:last-child {
+            border-bottom: none;
+        }
+
+        .update-date {
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .update-title {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .update-desc {
+            color: #666;
+            font-size: 14px;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .btn-back {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 10px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-bottom: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-3px);
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 32px; }
+            h2 { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span>🚀</span> WebSite
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About Us</a></li>
+                <li><a href="information.html" class="nav-link">Information</a></li>
+                <li><a href="settings.html" class="nav-link">Settings</a></li>
+                <li><a href="login.html" class="nav-link">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <a href="index.html" class="btn-back">← Back to Home</a>
+
+        <h1>Information</h1>
+        <p>Find everything you need to know about our services and updates here.</p>
+
+        <h2>Service Details</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>Web Development</h3>
+                <p>Custom websites and applications built with the latest technologies for optimal performance.</p>
+            </div>
+            <div class="info-card">
+                <h3>Mobile Applications</h3>
+                <p>Native and cross-platform apps designed for seamless user experience on any device.</p>
+            </div>
+            <div class="info-card">
+                <h3>Consulting Services</h3>
+                <p>Expert guidance and strategy for your digital transformation journey.</p>
+            </div>
+        </div>
+
+        <h2>Latest Updates</h2>
+        <div class="updates-list">
+            <div class="update-item">
+                <div class="update-date">January 20, 2026</div>
+                <div class="update-title">New Features Released</div>
+                <div class="update-desc">We've launched exciting new features to improve your experience. Check your dashboard!</div>
+            </div>
+            <div class="update-item">
+                <div class="update-date">January 15, 2026</div>
+                <div class="update-title">System Upgrade Complete</div>
+                <div class="update-desc">Our infrastructure has been upgraded for better performance and reliability.</div>
+            </div>
+            <div class="update-item">
+                <div class="update-date">January 10, 2026</div>
+                <div class="update-title">Mobile App Update</div>
+                <div class="update-desc">Version 3.0 is now available with bug fixes and performance improvements.</div>
+            </div>
+            <div class="update-item">
+                <div class="update-date">January 5, 2026</div>
+                <div class="update-title">New Documentation</div>
+                <div class="update-desc">Comprehensive guides and tutorials are now available in our learning center.</div>
+            </div>
+        </div>
+
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <h4>
+                How do I get started?
+                <span class="toggle">+</span>
+            </h4>
+            <div class="answer">
+                <p>Simply create an account, complete your profile, and explore our services. Our support team is ready to help!</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <h4>
+                What payment methods are accepted?
+                <span class="toggle">+</span>
+            </h4>
+            <div class="answer">
+                <p>We accept all major credit cards, PayPal, bank transfers, and cryptocurrency payments for your convenience.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <h4>
+                Is there a free trial?
+                <span class="toggle">+</span>
+            </h4>
+            <div class="answer">
+                <p>Yes! We offer a 30-day free trial with full access to all features. No credit card required.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <h4>
+                How can I contact support?
+                <span class="toggle">+</span>
+            </h4>
+            <div class="answer">
+                <p>Our support team is available 24/7 via email, live chat, or phone. We're here to help!</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <h4>
+                Can I change my plan?
+                <span class="toggle">+</span>
+            </h4>
+            <div class="answer">
+                <p>Absolutely! You can upgrade, downgrade, or cancel your plan anytime with just a few clicks.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Our Website. All rights reserved. Designed with ❤️</p>
+    </footer>
+
+    <script>
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('active');
+                const toggle = item.querySelector('.toggle');
+                toggle.textContent = item.classList.contains('active') ? '−' : '+';
+            });
+        });
+    </script>
+</body>
+</html>
