@@ -1,214 +1,158 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const addToCartBtns = document.querySelectorAll('.add-to-cart');
-    const modal = document.getElementById('quickViewModal');
-    const closeModal = document.querySelector('.close-modal');
-    const cartIcon = document.getElementById('cartIcon');
-    const cartCount = document.getElementById('cartCount');
-    let cartItems = parseInt(localStorage.getItem('cartCount')) || 0;
-    
-    // Initialize cart count from localStorage
-    cartCount.textContent = cartItems;
-    
-    // Skeleton loading for images
-    document.querySelectorAll('.product-image').forEach(img => {
-        const skeleton = img.previousElementSibling;
+class TrafficControlSystem {
+    constructor() {
+        // Traffic light elements
+        this.redLight = document.getElementById('redLight');
+        this.yellowLight = document.getElementById('yellowLight');
+        this.greenLight = document.getElementById('greenLight');
         
-        img.addEventListener('load', () => {
-            img.classList.remove('loading');
-            if (skeleton && skeleton.classList.contains('skeleton')) {
-                skeleton.classList.add('hidden');
-            }
-        });
+        this.roadRedLight = document.getElementById('roadRedLight');
+        this.roadYellowLight = document.getElementById('roadYellowLight');
+        this.roadGreenLight = document.getElementById('roadGreenLight');
         
-        // If image is already cached
-        if (img.complete) {
-            img.classList.remove('loading');
-            if (skeleton && skeleton.classList.contains('skeleton')) {
-                skeleton.classList.add('hidden');
-            }
+        // Info displays
+        this.stateDisplay = document.getElementById('stateDisplay');
+        this.timerDisplay = document.getElementById('timerDisplay');
+        
+        // Vehicles
+        this.vehicles = document.querySelectorAll('.vehicle');
+        
+        // Control state
+        this.currentState = 'red';
+        this.running = false;
+        this.timer = null;
+        this.elapsedTime = 0;
+        
+        // Timing configuration
+        this.timings = {
+            red: 15,      // 15 seconds
+            yellow: 5,    // 5 seconds
+            green: 20     // 20 seconds
+        };
+        
+        // State names
+        this.stateNames = {
+            red: 'STOP',
+            yellow: 'READY',
+            green: 'GO'
+        };
+        
+        this.initializeControls();
+        this.reset();
+    }
+
+    initializeControls() {
+        document.getElementById('startBtn').addEventListener('click', () => this.start());
+        document.getElementById('stopBtn').addEventListener('click', () => this.stop());
+        document.getElementById('resetBtn').addEventListener('click', () => this.reset());
+    }
+
+    setSignalState(state) {
+        // Remove active class from all lights
+        this.redLight.classList.remove('active');
+        this.yellowLight.classList.remove('active');
+        this.greenLight.classList.remove('active');
+        
+        this.roadRedLight.classList.remove('active');
+        this.roadYellowLight.classList.remove('active');
+        this.roadGreenLight.classList.remove('active');
+
+        // Activate the appropriate light
+        if (state === 'red') {
+            this.redLight.classList.add('active');
+            this.roadRedLight.classList.add('active');
+        } else if (state === 'yellow') {
+            this.yellowLight.classList.add('active');
+            this.roadYellowLight.classList.add('active');
+        } else if (state === 'green') {
+            this.greenLight.classList.add('active');
+            this.roadGreenLight.classList.add('active');
         }
-    });
-    
-    // Quick view popup
-    document.querySelectorAll('.quick-view-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const card = btn.closest('.product-card');
-            const title = card.querySelector('.product-title').textContent;
-            const price = card.querySelector('.product-price').textContent;
-            const imgSrc = card.querySelector('.product-image').src.replace('w=300&h=300', 'w=600&h=600');
-            
-            document.getElementById('modalTitle').textContent = title;
-            document.getElementById('modalPrice').textContent = price;
-            document.getElementById('modalImage').src = imgSrc;
-            
-            modal.classList.add('active');
-        });
-    });
-    
-    closeModal.addEventListener('click', () => {
-        modal.classList.remove('active');
-    });
-    
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('active');
-        }
-    });
-    
-    // Fly to cart animation
-    function flyToCart(imgElement, buttonElement) {
-        const imgRect = imgElement.getBoundingClientRect();
-        const cartRect = cartIcon.getBoundingClientRect();
-        
-        const flyingImg = document.createElement('img');
-        flyingImg.src = imgElement.src;
-        flyingImg.className = 'flying-product';
-        flyingImg.style.left = imgRect.left + 'px';
-        flyingImg.style.top = imgRect.top + 'px';
-        
-        document.body.appendChild(flyingImg);
-        
-        setTimeout(() => {
-            flyingImg.style.transition = 'all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
-            flyingImg.style.left = cartRect.left + 'px';
-            flyingImg.style.top = cartRect.top + 'px';
-            flyingImg.style.animation = 'flyToCart 0.8s ease-in-out';
-        }, 50);
-        
-        setTimeout(() => {
-            document.body.removeChild(flyingImg);
-            updateCartCount();
-        }, 850);
+
+        this.currentState = state;
+        this.updateVehicles();
+        this.updateDisplay();
     }
-    
-    // Update cart count with animation
-    function updateCartCount() {
-        cartItems++;
-        cartCount.textContent = cartItems;
-        cartCount.style.animation = 'none';
-        
-        setTimeout(() => {
-            cartCount.style.animation = 'bounce 0.5s ease';
-        }, 10);
-        
-        cartIcon.classList.add('shake');
-        
-        setTimeout(() => {
-            cartIcon.classList.remove('shake');
-        }, 500);
-        
-        // Save to localStorage
-        localStorage.setItem('cartCount', cartItems);
-    }
-    
-    // Cart icon click handler
-    cartIcon.addEventListener('click', () => {
-        alert(`You have ${cartItems} item(s) in your cart`);
-    });
-    
-    // Wishlist heart animation
-    document.querySelectorAll('.wishlist-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            this.classList.toggle('active');
-            
-            if (this.classList.contains('active')) {
-                // Create floating hearts
-                for (let i = 0; i < 5; i++) {
-                    setTimeout(() => {
-                        createFloatingHeart(this);
-                    }, i * 100);
-                }
-            }
-        });
-    });
-    
-    // Create floating heart animation
-    function createFloatingHeart(button) {
-        const heart = document.createElement('div');
-        heart.textContent = '❤';
-        heart.style.position = 'fixed';
-        heart.style.fontSize = '20px';
-        heart.style.color = '#e74c3c';
-        heart.style.pointerEvents = 'none';
-        heart.style.zIndex = '9999';
-        
-        const rect = button.getBoundingClientRect();
-        heart.style.left = rect.left + rect.width / 2 + 'px';
-        heart.style.top = rect.top + rect.height / 2 + 'px';
-        
-        document.body.appendChild(heart);
-        
-        const angle = Math.random() * Math.PI * 2;
-        const distance = 50 + Math.random() * 50;
-        const endX = rect.left + rect.width / 2 + Math.cos(angle) * distance;
-        const endY = rect.top + rect.height / 2 + Math.sin(angle) * distance - 50;
-        
-        heart.style.transition = 'all 1s ease-out';
-        heart.style.opacity = '1';
-        
-        setTimeout(() => {
-            heart.style.left = endX + 'px';
-            heart.style.top = endY + 'px';
-            heart.style.opacity = '0';
-            heart.style.transform = 'scale(1.5)';
-        }, 50);
-        
-        setTimeout(() => {
-            document.body.removeChild(heart);
-        }, 1050);
-    }
-    
-    // Size selection with animation for all watches
-    document.querySelectorAll('.product-card, .modal-content').forEach(card => {
-        const sizeButtons = card.querySelectorAll('.size-btn');
-        
-        sizeButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                // Remove active class from all buttons in this card
-                sizeButtons.forEach(btn => btn.classList.remove('active'));
-                
-                // Add active class to clicked button
-                this.classList.add('active');
-                
-                // Add clicked class for ripple effect
-                this.classList.add('clicked');
-                
-                // Remove clicked class after animation
-                setTimeout(() => {
-                    this.classList.remove('clicked');
-                }, 600);
-            });
-        });
-    });
-    
-    // Add to cart button effect for all watches
-    addToCartBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const card = this.closest('.product-card') || this.closest('.modal-content');
-            const title = card.querySelector('.product-title, #modalTitle').textContent;
-            const selectedSize = card.querySelector('.size-btn.active').dataset.size;
-            const beltColor = card.closest('.product-card')?.dataset.beltColor || 'N/A';
-            
-            // Get image element
-            let imgElement;
-            if (card.classList.contains('modal-content')) {
-                imgElement = document.getElementById('modalImage');
+
+    updateVehicles() {
+        this.vehicles.forEach(vehicle => {
+            if (this.currentState === 'red') {
+                // Stop vehicles on red light
+                vehicle.classList.add('stopped');
             } else {
-                imgElement = card.querySelector('.product-image');
+                // Move vehicles on yellow and green light
+                vehicle.classList.remove('stopped');
             }
-            
-            // Fly to cart animation
-            flyToCart(imgElement, this);
-            
-            // Close modal if open
-            modal.classList.remove('active');
-            
-            // Show success message after animation
-            setTimeout(() => {
-                alert(`Added ${title} (${selectedSize}, Belt: ${beltColor}) to cart!`);
-            }, 900);
         });
-    });
+    }
+
+    updateDisplay() {
+        this.stateDisplay.textContent = this.stateNames[this.currentState];
+    }
+
+    updateTimer(time) {
+        this.timerDisplay.textContent = time + 's';
+    }
+
+    start() {
+        if (this.running) return;
+        
+        this.running = true;
+        this.elapsedTime = 0;
+        
+        document.getElementById('startBtn').disabled = true;
+        document.getElementById('stopBtn').disabled = false;
+
+        this.timer = setInterval(() => {
+            this.updateTrafficCycle();
+        }, 1000);
+
+        this.updateTrafficCycle();
+    }
+
+    stop() {
+        this.running = false;
+        clearInterval(this.timer);
+        
+        document.getElementById('startBtn').disabled = false;
+        document.getElementById('stopBtn').disabled = true;
+    }
+
+    reset() {
+        this.stop();
+        this.elapsedTime = 0;
+        this.setSignalState('red');
+        this.updateTimer(this.timings.red);
+        
+        document.getElementById('startBtn').disabled = false;
+        document.getElementById('stopBtn').disabled = true;
+    }
+
+    updateTrafficCycle() {
+        const totalCycleTime = this.timings.red + this.timings.yellow + this.timings.green;
+        const timeInCycle = this.elapsedTime % totalCycleTime;
+
+        let state;
+        let timeRemaining;
+
+        // Cycle: Red -> Yellow -> Green
+        if (timeInCycle < this.timings.red) {
+            state = 'red';
+            timeRemaining = this.timings.red - Math.floor(timeInCycle);
+        } else if (timeInCycle < this.timings.red + this.timings.yellow) {
+            state = 'yellow';
+            timeRemaining = this.timings.red + this.timings.yellow - Math.floor(timeInCycle);
+        } else {
+            state = 'green';
+            timeRemaining = totalCycleTime - Math.floor(timeInCycle);
+        }
+
+        this.setSignalState(state);
+        this.updateTimer(timeRemaining);
+        this.elapsedTime++;
+    }
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    const trafficSystem = new TrafficControlSystem();
 });
