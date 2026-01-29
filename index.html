@@ -1,196 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Traffic Signal – Proper Queue</title>
-
-<style>
-body {
-    font-family: Arial, sans-serif;
-    background: #f4f6f8;
-    margin: 0;
-}
-
-.container {
-    text-align: center;
-    padding: 20px;
-}
-
-/* ===== SIGNAL ===== */
-.traffic-signal {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.signal-box {
-    background: #222;
-    padding: 10px;
-    border-radius: 10px;
-}
-
-.light {
-    width: 40px;
-    height: 40px;
-    margin: 8px auto;
-    border-radius: 50%;
-    opacity: 0.3;
-}
-
-.light.active { opacity: 1; }
-
-.red { background: red; }
-.yellow { background: yellow; }
-.green { background: green; }
-
-.info-panel {
-    font-size: 18px;
-    text-align: left;
-}
-
-/* ===== ROAD ===== */
-.road {
-    background: #333;
-    height: 220px;
-    border-radius: 10px;
-    position: relative;
-    overflow: hidden;
-}
-
-.lane {
-    height: 70px;
-    position: relative;
-    border-bottom: 2px dashed #fff;
-}
-
-.bottom-lane { border-bottom: none; }
-
-/* ===== STOP LINE ===== */
-.stop-line {
-    position: absolute;
-    left: 40%;
-    top: 0;
-    height: 100%;
-    width: 6px;
-    background: white;
-}
-
-/* ===== VEHICLES ===== */
-.vehicle {
-    position: absolute;
-    right: -120px;
-    font-size: 32px;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>you come you see</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">🚀</span>
+                WebSite
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="about.html" class="nav-link">About Us</a></li>
+                <li><a href="information.html" class="nav-link">Information</a></li>
+                <li><a href="settings.html" class="nav-link">Settings</a></li>
+                <li><a href="login.html" class="nav-link">Login</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
 
-<div class="container">
-<h1>🚦 Traffic Light Control System</h1>
+    <!-- Company Image Section -->
+    <section class="company-image-section">
+        <div class="container">
+            <div class="company-image-wrapper">
+                <img src="images (2).jpg" alt="Company Image" class="company-img">
+            </div>
+            <h1 class="company-title">YOU COME YOU SEE</h1>
+            <p class="company-subtitle">Build your dreams with modern solutions and innovative services</p>
+            <div class="company-buttons">
+                <button class="btn btn-primary">Get Started</button>
+                <button class="btn btn-secondary">Learn More</button>
+            </div>
+        </div>
+    </section>
 
-<div class="traffic-signal">
-    <div class="signal-box">
-        <div class="light red" id="redLight"></div>
-        <div class="light yellow" id="yellowLight"></div>
-        <div class="light green" id="greenLight"></div>
-    </div>
-    <div class="info-panel">
-        <p>State: <strong id="stateText">STOP</strong></p>
-        <p>Time: <strong id="timerText">15</strong>s</p>
-    </div>
-</div>
+    
+    </section>
 
-<div class="road" id="road">
-    <div class="stop-line" id="stopLine"></div>
+    
 
-    <div class="lane">
-        <div class="vehicle">🚗</div>
-        <div class="vehicle">🚗</div>
-    </div>
-    <div class="lane">
-        <div class="vehicle">🚕</div>
-        <div class="vehicle">🚗</div>
-    </div>
-    <div class="lane bottom-lane">
-        <div class="vehicle">🚕</div>
-        <div class="vehicle">🚗</div>
-    </div>
-</div>
-</div>
-
-<script>
-let state = "RED";
-let timer = 15;
-let interval;
-
-const vehicles = document.querySelectorAll(".vehicle");
-const stopLine = document.getElementById("stopLine");
-
-vehicles.forEach(v => v.x = -120);
-
-function updateLights() {
-    redLight.classList.remove("active");
-    yellowLight.classList.remove("active");
-    greenLight.classList.remove("active");
-
-    if (state === "RED") {
-        redLight.classList.add("active");
-        stateText.textContent = "STOP";
-    }
-    if (state === "YELLOW") {
-        yellowLight.classList.add("active");
-        stateText.textContent = "READY";
-    }
-    if (state === "GREEN") {
-        greenLight.classList.add("active");
-        stateText.textContent = "GO";
-    }
-}
-
-/* ===== MOVE & QUEUE LOGIC ===== */
-setInterval(() => {
-    const lineX = stopLine.getBoundingClientRect().left;
-    const gap = 10;
-
-    document.querySelectorAll(".lane").forEach(lane => {
-        const cars = Array.from(lane.querySelectorAll(".vehicle"));
-        let stopX = lineX;
-
-        cars.forEach(car => {
-            const width = car.getBoundingClientRect().width;
-
-            if (state === "GREEN") {
-                car.x -= 2;
-            } else {
-                if (car.getBoundingClientRect().left <= stopX - gap) {
-                    car.x = car.x; // stop
-                    stopX -= (width + gap);
-                } else {
-                    car.x -= 2;
-                }
-            }
-            car.style.transform = `translateX(${car.x}px)`;
-        });
-    });
-}, 16);
-
-/* ===== TIMER ===== */
-setInterval(() => {
-    timer--;
-    timerText.textContent = timer;
-
-    if (timer === 0) {
-        if (state === "RED") { state = "YELLOW"; timer = 5; }
-        else if (state === "YELLOW") { state = "GREEN"; timer = 20; }
-        else { state = "RED"; timer = 15; }
-        updateLights();
-    }
-}, 1000);
-
-updateLights();
-</script>
-
+    <script src="main.js"></script>
 </body>
 </html>
