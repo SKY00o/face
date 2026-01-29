@@ -3,52 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>you come you see</title>
+    <title>Watch Product Display</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <span class="logo-icon">🚀</span>
-                WebSite
+    <div class="container">
+        <div class="product-card" data-belt-color="#FF5733">
+            <div class="image-container">
+                <div class="image-wrapper">
+                    <div class="skeleton"></div>
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&h=300&fit=crop" alt="Watch" class="product-image loading" loading="lazy">
+                    <div class="belt-indicator" style="background: #FF5733;"></div>
+                    <button class="quick-view-btn">Quick View</button>
+                    <button class="wishlist-btn">❤</button>
+                </div>
             </div>
-            <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link active">Home</a></li>
-                <li><a href="about.html" class="nav-link">About Us</a></li>
-                <li><a href="information.html" class="nav-link">Information</a></li>
-                <li><a href="settings.html" class="nav-link">Settings</a></li>
-                <li><a href="login.html" class="nav-link">Login</a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Company Image Section -->
-    <section class="company-image-section">
-        <div class="container">
-            <div class="company-image-wrapper">
-                <img src="images (2).jpg" alt="Company Image" class="company-img">
-            </div>
-            <h1 class="company-title">YOU COME YOU SEE</h1>
-            <p class="company-subtitle">Build your dreams with modern solutions and innovative services</p>
-            <div class="company-buttons">
-                <button class="btn btn-primary">Get Started</button>
-                <button class="btn btn-secondary">Learn More</button>
+            
+            <div class="product-info">
+                <h2 class="product-title">Classic Coral Watch</h2>
+                <p class="product-price">₹2,499</p>
+                
+                <div class="size-selector">
+                    <h3>Select Size</h3>
+                    <div class="size-options">
+                        <button class="size-btn" data-size="38mm">38mm</button>
+                        <button class="size-btn active" data-size="42mm">42mm</button>
+                        <button class="size-btn" data-size="46mm">46mm</button>
+                    </div>
+                </div>
+                
+                <button class="add-to-cart">Add to Cart</button>
             </div>
         </div>
-    </section>
 
+        <div class="product-card" data-belt-color="#3498DB">
+            <div class="image-container">
+                <div class="image-wrapper">
+                    <div class="skeleton"></div>
+                    <img src="https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=300&h=300&fit=crop" alt="Watch" class="product-image loading" loading="lazy">
+                    <div class="belt-indicator" style="background: #3498DB;"></div>
+                    <button class="quick-view-btn">Quick View</button>
+                    <button class="wishlist-btn">❤</button>
+                </div>
+            </div>
+            
+            <div class="product-info">
+                <h2 class="product-title">Ocean Blue Elite</h2>
+                <p class="product-price">₹4,299</p>
+                
+                <div class="size-selector">
+                    <h3>Select Size</h3>
+                    <div class="size-options">
+                        <button class="size-btn" data-size="38mm">38mm</button>
+                        <button class="size-btn active" data-size="42mm">42mm</button>
+                        <button class="size-btn" data-size="46mm">46mm</button>
+                    </div>
+                </div>
+                
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-belt-color="#2ECC71">
+            <div class="image-container">
+                <div class="image-wrapper">
+                    <div class="skeleton"></div>
+                    <img src="https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?w=300&h=300&fit=crop" alt="Watch" class="product-image loading" loading="lazy">
+                    <div class="belt-indicator" style="background: #2ECC71;"></div>
+                    <button class="quick-view-btn">Quick View</button>
+                    <button class="wishlist-btn">❤</button>
+                </div>
+            </div>
+            
+            <div class="product-info">
+                <h2 class="product-title">Emerald Sport Pro</h2>
+                <p class="product-price">₹6,799</p>
+                
+                <div class="size-selector">
+                    <h3>Select Size</h3>
+                    <div class="size-options">
+                        <button class="size-btn" data-size="38mm">38mm</button>
+                        <button class="size-btn active" data-size="42mm">42mm</button>
+                        <button class="size-btn" data-size="46mm">46mm</button>
+                    </div>
+                </div>
+                
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-belt-color="#9B59B6">
+            <div class="image-container">
+                <div class="image-wrapper">
+                    <div class="skeleton"></div>
+                    <img src="https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=300&h=300&fit=crop" alt="Watch" class="product-image loading" loading="lazy">
+                    <div class="belt-indicator" style="background: #9B59B6;"></div>
+                    <button class="quick-view-btn">Quick View</button>
+                    <button class="wishlist-btn">❤</button>
+                </div>
+            </div>
+            
+            <div class="product-info">
+                <h2 class="product-title">Purple Elegance</h2>
+                <p class="product-price">₹8,999</p>
+                
+                <div class="size-selector">
+                    <h3>Select Size</h3>
+                    <div class="size-options">
+                        <button class="size-btn" data-size="38mm">38mm</button>
+                        <button class="size-btn active" data-size="42mm">42mm</button>
+                        <button class="size-btn" data-size="46mm">46mm</button>
+                    </div>
+                </div>
+                
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-belt-color="#F39C12">
+            <div class="image-container">
+                <div class="image-wrapper">
+                    <div class="skeleton"></div>
+                    <img src="https://images.unsplash.com/photo-1622434641406-a158123450f9?w=300&h=300&fit=crop" alt="Watch" class="product-image loading" loading="lazy">
+                    <div class="belt-indicator" style="background: #F39C12;"></div>
+                    <button class="quick-view-btn">Quick View</button>
+                    <button class="wishlist-btn">❤</button>
+                </div>
+            </div>
+            
+            <div class="product-info">
+                <h2 class="product-title">Golden Sunset</h2>
+                <p class="product-price">₹5,599</p>
+                
+                <div class="size-selector">
+                    <h3>Select Size</h3>
+                    <div class="size-options">
+                        <button class="size-btn" data-size="38mm">38mm</button>
+                        <button class="size-btn active" data-size="42mm">42mm</button>
+                        <button class="size-btn" data-size="46mm">46mm</button>
+                    </div>
+                </div>
+                
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-belt-color="#34495E">
+            <div class="image-container">
+                <div class="image-wrapper">
+                    <div class="skeleton"></div>
+                    <img src="https://images.unsplash.com/photo-1594576722512-582bcd46fba3?w=300&h=300&fit=crop" alt="Watch" class="product-image loading" loading="lazy">
+                    <div class="belt-indicator" style="background: #34495E;"></div>
+                    <button class="quick-view-btn">Quick View</button>
+                    <button class="wishlist-btn">❤</button>
+                </div>
+            </div>
+            
+            <div class="product-info">
+                <h2 class="product-title">Midnight Steel</h2>
+                <p class="product-price">₹9,999</p>
+                
+                <div class="size-selector">
+                    <h3>Select Size</h3>
+                    <div class="size-options">
+                        <button class="size-btn" data-size="38mm">38mm</button>
+                        <button class="size-btn active" data-size="42mm">42mm</button>
+                        <button class="size-btn" data-size="46mm">46mm</button>
+                    </div>
+                </div>
+                
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="cart-icon" id="cartIcon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <circle cx="9" cy="21" r="1"/>
+            <circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
+        <span class="cart-count" id="cartCount">0</span>
+    </div>
+
+    <div class="quick-view-modal" id="quickViewModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img src="" alt="Product" id="modalImage" loading="lazy">
+                </div>
+                <div class="modal-info">
+                    <h2 id="modalTitle"></h2>
+                    <p class="modal-price" id="modalPrice"></p>
+                    <p class="modal-description">Premium quality watch with precision movement and elegant design. Features include water resistance, scratch-resistant glass, and comfortable strap.</p>
+                    <div class="size-selector">
+                        <h3>Select Size</h3>
+                        <div class="size-options" id="modalSizes">
+                            <button class="size-btn" data-size="38mm">38mm</button>
+                            <button class="size-btn active" data-size="42mm">42mm</button>
+                            <button class="size-btn" data-size="46mm">46mm</button>
+                        </div>
+                    </div>
+                    <button class="add-to-cart modal-add-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
     
-    </section>
-
-    
-
-    <script src="main.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
